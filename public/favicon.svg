@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff9ad5"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- caja -->
+  <rect x="11" y="29" width="42" height="26" rx="3" fill="url(#box)"/>
+  <!-- tapa -->
+  <rect x="8" y="22" width="48" height="11" rx="3" fill="#fbbf24"/>
+  <rect x="8" y="30" width="48" height="3" fill="#d97706" opacity=".35"/>
+  <!-- listón -->
+  <rect x="28" y="22" width="8" height="33" fill="#ef4444"/>
+  <!-- moño -->
+  <path d="M32 22 C24 6 10 12 20 20 C23 22 28 22 32 22 Z" fill="#ef4444"/>
+  <path d="M32 22 C40 6 54 12 44 20 C41 22 36 22 32 22 Z" fill="#dc2626"/>
+  <circle cx="32" cy="21" r="3.4" fill="#b91c1c"/>
+</svg>

@@ -20,6 +20,20 @@
     <p class="text">{{ typed() }}<span class="cursor" [class.hidden]="done()">|</span></p>
   </article>
 
+  <!-- Aparece cuando se termina de leer la carta -->
+  @if (done()) {
+    <button
+      type="button"
+      class="leave"
+      [class.shake]="leaving()"
+      [disabled]="leaving()"
+      (mouseenter)="sound.bloop()"
+      (click)="leave()"
+    >
+      <span class="door" aria-hidden="true">🚪</span> Ya te vas
+    </button>
+  }
+
   <p class="footer-deco" aria-hidden="true">
     <span>🎂</span><span>🎁</span><span>🎈</span><span>🥳</span><span>🎈</span><span>🎁</span><span>🎂</span>
   </p>
@@ -60,4 +74,8 @@
       </div>
     }
   </div>
+
+  @if (showHint()) {
+    <app-hint-modal (closed)="closeHint()" />
+  }
 </main>

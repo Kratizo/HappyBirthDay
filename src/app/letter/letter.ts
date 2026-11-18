@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Decor } from '../decor/decor';
+import { HintModal } from '../hint/hint-modal';
 import { LETTER_PHOTOS } from '../photos';
 import { SoundToggle } from '../sound/sound-toggle';
 import { SoundService } from '../sound/sound.service';
@@ -8,7 +9,7 @@ import { DEDICATION } from './dedication';
 
 @Component({
   selector: 'app-letter',
-  imports: [RouterLink, SoundToggle, Decor],
+  imports: [RouterLink, SoundToggle, Decor, HintModal],
   templateUrl: './letter.html',
   styleUrl: './letter.css'
 })
@@ -19,6 +20,11 @@ export class Letter implements OnInit, OnDestroy {
   protected readonly envelopeOpen = signal(false);
   protected readonly typed = signal('');
   protected readonly done = signal(false);
+
+  /** El botón "ya te vas" hace un berrinche mientras suena el trombón triste. */
+  protected readonly leaving = signal(false);
+  /** Ventana con Tubo y la pista del regalo. */
+  protected readonly showHint = signal(false);
 
   /**
    * Fotos dispersas alrededor de la carta (ver photos.ts)
@@ -66,11 +72,14 @@ export class Letter implements OnInit, OnDestroy {
   private interval?: ReturnType<typeof setInterval>;
 
   ngOnInit(): void {
+    // La música se vuelve suave (caja de música) mientras se lee la carta.
+    this.sound.setMood('tender');
     // 1) se abre el sobre, 2) sale la carta, 3) se escribe el texto
     this.timers.push(
       setTimeout(() => {
         this.envelopeOpen.set(true);
         this.sound.whoosh();
+        this.sound.paper();
       }, 200)
     );
     this.timers.push(setTimeout(() => this.sound.sparkle(), 800));
@@ -80,6 +89,27 @@ export class Letter implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.timers.forEach(clearTimeout);
     clearInterval(this.interval);
+    this.sound.setMood('party');
+  }
+
+  /** "Ya te vas": trombón triste y, enseguida, aparece Tubo con la pista del regalo. */
+  protected leave(): void {
+    if (this.leaving() || this.showHint()) return;
+    this.leaving.set(true);
+    this.sound.sadTrombone();
+    this.sound.drumroll(0.9);
+    this.timers.push(
+      setTimeout(() => {
+        this.leaving.set(false);
+        this.sound.setMood('secret');
+        this.showHint.set(true);
+      }, 1000)
+    );
+  }
+
+  protected closeHint(): void {
+    this.showHint.set(false);
+    this.sound.setMood('tender');
   }
 
   /** Un clic en la carta muestra todo el texto de inmediato. */
@@ -87,8 +117,14 @@ export class Letter implements OnInit, OnDestroy {
     if (this.done()) return;
     clearInterval(this.interval);
     this.typed.set(this.fullText);
+    this.finish();
+  }
+
+  private finish(): void {
     this.done.set(true);
     this.sound.tada();
+    // El botón aparece con un "pling" un momento después de la fanfarria.
+    this.timers.push(setTimeout(() => this.sound.chime(), 700));
   }
 
   private startTyping(): void {
@@ -99,8 +135,7 @@ export class Letter implements OnInit, OnDestroy {
       if (this.fullText[i - 1].trim()) this.sound.tick();
       if (i >= this.fullText.length) {
         clearInterval(this.interval);
-        this.done.set(true);
-        this.sound.tada();
+        this.finish();
       }
     }, 55);
   }

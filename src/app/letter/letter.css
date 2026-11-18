@@ -200,6 +200,92 @@
   color: #4a1d6a;
 }
 
+/* ---------- Botón "Ya te vas" ---------- */
+.leave {
+  position: relative;
+  z-index: 6;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.8rem 1.9rem;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+  color: #fff;
+  font: 800 clamp(1.05rem, 3vw, 1.3rem) / 1 'Segoe UI', system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    0 0 0 6px rgba(255, 255, 255, 0.15);
+  animation:
+    leave-in 0.7s cubic-bezier(0.2, 1.6, 0.4, 1) both,
+    leave-pulse 1.8s ease-in-out 0.9s infinite;
+}
+
+.leave:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: scale(1.06);
+}
+
+.leave:disabled {
+  cursor: default;
+}
+
+.leave .door {
+  display: inline-block;
+  font-size: 1.4em;
+  transform-origin: 0 50%;
+}
+
+.leave:hover .door {
+  animation: door-knock 0.5s ease-in-out infinite alternate;
+}
+
+.leave.shake {
+  animation: leave-shake 0.35s ease-in-out infinite;
+}
+
+@keyframes leave-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.5);
+  }
+}
+
+@keyframes leave-pulse {
+  50% {
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.4),
+      0 0 0 12px rgba(255, 255, 255, 0.05);
+    transform: scale(1.04);
+  }
+}
+
+@keyframes leave-shake {
+  25% {
+    transform: translateX(-7px) rotate(-3deg);
+  }
+  75% {
+    transform: translateX(7px) rotate(3deg);
+  }
+}
+
+@keyframes door-knock {
+  to {
+    transform: perspective(60px) rotateY(-35deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leave,
+  .leave.shake,
+  .leave:hover .door {
+    animation: none;
+  }
+}
+
 .cursor {
   animation: blink 0.8s steps(1) infinite;
   color: #ec6fb3;

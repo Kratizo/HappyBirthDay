@@ -1,0 +1,53 @@
+<div class="backdrop" [class.closing]="closing()" (click)="close()">
+  <section
+    class="dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="hint-title"
+    (click)="$event.stopPropagation()"
+  >
+    <button type="button" class="x" aria-label="Cerrar" (click)="close()">✕</button>
+
+    <!-- Confeti al terminar de leer -->
+    @if (done()) {
+      <div class="rain" aria-hidden="true">
+        @for (c of confetti; track $index) {
+          <span [style.left.%]="c.x" [style.animation-delay]="c.d + 's'" [style.animation-duration]="c.dur + 's'">{{ c.e }}</span>
+        }
+      </div>
+    }
+
+    <div class="stage">
+      <div class="tuber" [class.up]="stage() >= 1">
+        <!-- Cuerpo: tubo plateado liso, sin cara -->
+        <div class="body" aria-hidden="true">
+          <span class="rim"></span>
+          <span class="shine"></span>
+          <span class="band b1"></span>
+          <span class="band b2"></span>
+        </div>
+
+        <!-- Cartel -->
+        <div class="sign" [class.show]="stage() >= 2">
+          <span class="nail nl"></span>
+          <span class="nail nr"></span>
+          <h2 id="hint-title">{{ hint.title }}</h2>
+          <ol>
+            @for (s of hint.steps; track $index) {
+              <li [class.show]="$index < shownSteps()">{{ s }}</li>
+            }
+          </ol>
+          <p class="sig" [class.show]="done()">{{ hint.outro }}</p>
+        </div>
+
+        <!-- Bracitos y manos que sostienen el cartel -->
+        <span class="arm l" aria-hidden="true"><i class="hand"></i></span>
+        <span class="arm r" aria-hidden="true"><i class="hand"></i></span>
+      </div>
+    </div>
+
+    <div class="ground">
+      <button #okBtn type="button" class="ok" [class.show]="done()" (click)="close()">¡Entendido! 🎁</button>
+    </div>
+  </section>
+</div>
