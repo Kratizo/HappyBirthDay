@@ -1,0 +1,63 @@
+<main class="screen">
+  <app-party-decor />
+  <a routerLink="/fiesta" class="back">← Volver</a>
+  <app-sound-toggle />
+
+  <span class="envelope" [class.open]="envelopeOpen()">
+    <span class="flap"></span>
+    <span class="pocket"></span>
+    <span class="seal">🎂</span>
+  </span>
+
+  <article class="paper" [class.show]="envelopeOpen()" (click)="skip()" title="Haz clic para ver todo el texto">
+    <span class="tape tape-l" aria-hidden="true"></span>
+    <span class="tape tape-r" aria-hidden="true"></span>
+    <span class="sticker st-tl" aria-hidden="true">🎀</span>
+    <span class="sticker st-tr" aria-hidden="true">⭐</span>
+    <span class="sticker st-bl" aria-hidden="true">🌸</span>
+    <span class="sticker st-br" aria-hidden="true">💖</span>
+    <span class="edge" aria-hidden="true"></span>
+    <p class="text">{{ typed() }}<span class="cursor" [class.hidden]="done()">|</span></p>
+  </article>
+
+  <p class="footer-deco" aria-hidden="true">
+    <span>🎂</span><span>🎁</span><span>🎈</span><span>🥳</span><span>🎈</span><span>🎁</span><span>🎂</span>
+  </p>
+
+  <div class="gallery">
+    <!-- Marcos de fotos dispersos alrededor de la carta -->
+    @for (f of frames; track f.src) {
+      <figure
+        class="frame"
+        [class.show]="envelopeOpen()"
+        [style.left]="f.left"
+        [style.top]="f.top"
+        [style.--rot]="f.rot"
+        [style.--s]="f.scale"
+        [style.--d]="f.delay"
+        (mouseenter)="sound.bloop()"
+        (click)="sound.pop()"
+      >
+        <div class="pic">
+          @if (failed().has(f.src)) {
+            <span class="ph">{{ f.emoji }}</span>
+          } @else {
+            <img [src]="f.src" alt="Foto de recuerdo" (error)="markFailed(f.src)" />
+          }
+        </div>
+      </figure>
+    }
+  </div>
+
+  <!-- Globos que suben desde abajo de la pantalla -->
+  <div class="balloons" aria-hidden="true">
+    @for (b of balloons; track b.text) {
+      <div class="balloon" [style.--x]="b.x" [style.--xs]="b.xs" [style.--s]="b.s" [style.--c]="b.color" [style.--dur]="b.dur + 's'" [style.--d]="b.delay + 's'">
+        <div class="sway">
+          <div class="body">{{ b.text }}</div>
+          <span class="string"></span>
+        </div>
+      </div>
+    }
+  </div>
+</main>

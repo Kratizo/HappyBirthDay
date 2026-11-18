@@ -1,0 +1,253 @@
+:host {
+  position: relative;
+  display: block;
+  flex: none;
+  width: var(--dw);
+  aspect-ratio: 200 / 260;
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.25));
+}
+
+/* La cola apunta hacia afuera: del lado derecho se refleja */
+.side-r .art {
+  transform: scaleX(-1);
+}
+
+/* ---------- Colores ---------- */
+.fur {
+  fill: var(--fur);
+}
+
+.fur.dk {
+  filter: brightness(0.93);
+}
+
+.belly {
+  fill: var(--belly);
+}
+
+.paw {
+  fill: var(--belly);
+}
+
+.ear {
+  fill: var(--ear);
+}
+
+.nose {
+  fill: var(--nose);
+}
+
+.tail-p {
+  fill: none;
+  stroke: var(--fur);
+  stroke-width: 17;
+  stroke-linecap: round;
+}
+
+.o {
+  stroke: rgba(45, 22, 40, 0.35);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.ground {
+  fill: rgba(0, 0, 0, 0.3);
+}
+
+.toes {
+  fill: none;
+  stroke: rgba(45, 22, 40, 0.35);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.collar {
+  fill: none;
+  stroke: var(--collar);
+  stroke-width: 9;
+  stroke-linecap: round;
+}
+
+.tag {
+  fill: #fde047;
+}
+
+.bandana {
+  fill: #dc2626;
+}
+
+.bandana-line {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.3);
+  stroke-width: 3;
+}
+
+.knot {
+  fill: #b91c1c;
+}
+
+.eye {
+  fill: #241a1f;
+}
+
+.spark {
+  fill: #fff;
+}
+
+.shine {
+  fill: rgba(255, 255, 255, 0.55);
+}
+
+.mouth {
+  fill: none;
+  stroke: #3b2b2f;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.tongue {
+  fill: #ff7aa8;
+  stroke: rgba(150, 30, 80, 0.4);
+  stroke-width: 1.5;
+}
+
+.brow {
+  fill: none;
+  stroke: rgba(45, 22, 40, 0.45);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.cheek {
+  fill: #ff9ad5;
+  opacity: 0.4;
+}
+
+/* ---------- Animaciones ---------- */
+.tail {
+  transform-origin: 66px 224px;
+  animation: wag 0.5s ease-in-out calc(var(--k) * -0.12s) infinite alternate;
+}
+
+@keyframes wag {
+  from {
+    transform: rotate(8deg);
+  }
+  to {
+    transform: rotate(-26deg);
+  }
+}
+
+.head {
+  transform-origin: 100px 150px;
+  animation: tilt 4.5s ease-in-out calc(var(--k) * -1.1s) infinite;
+}
+
+@keyframes tilt {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+.eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4.2s ease-in-out calc(var(--k) * -0.9s) infinite;
+}
+
+@keyframes blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.1);
+  }
+}
+
+.tongue {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: pant 0.9s ease-in-out calc(var(--k) * -0.2s) infinite alternate;
+}
+
+@keyframes pant {
+  from {
+    transform: scaleY(0.85);
+  }
+  to {
+    transform: scaleY(1.1);
+  }
+}
+
+/* ---------- Ladrido ---------- */
+.bark {
+  position: absolute;
+  left: 50%;
+  top: -4%;
+  z-index: 5;
+  padding: 0.15em 0.55em;
+  transform: translateX(-50%) scale(0);
+  transform-origin: 50% 100%;
+  border-radius: 999px;
+  background: #fff;
+  color: #7e22ce;
+  font-size: max(0.7rem, calc(var(--dw) * 0.2));
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bark::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top-color: #fff;
+}
+
+.barking .bark {
+  animation: bark 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) calc(0.55s + var(--k) * 0.09s) forwards;
+}
+
+.barking .tail {
+  animation-duration: 0.18s;
+}
+
+@keyframes bark {
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tail,
+  .head,
+  .eyes,
+  .tongue {
+    animation: none;
+  }
+}

@@ -1,0 +1,104 @@
+<main class="scene" [class.opening]="opening()">
+  <!-- Guirnalda de luces -->
+  <div class="lights" aria-hidden="true">
+    <svg viewBox="0 0 100 24" preserveAspectRatio="none">
+      <path d="M0 0 Q25 24 50 0 Q75 24 100 0" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" vector-effect="non-scaling-stroke" />
+    </svg>
+    @for (b of bulbs; track $index) {
+      <span class="bulb" [style.left.%]="b.x" [style.top.rem]="b.y" [style.--c]="b.c" [style.--dl]="b.d + 's'"></span>
+    }
+  </div>
+
+  <!-- Rayo de luz de la ventana con motas de polvo -->
+  <div class="beam" aria-hidden="true"></div>
+  @for (m of motes; track $index) {
+    <span class="mote" aria-hidden="true" [style.left.%]="m.x" [style.top.%]="m.y" [style.--s]="m.s + 'px'" [style.--dur]="m.dur + 's'" [style.--dl]="m.d + 's'"></span>
+  }
+
+  <!-- Reloj de pared -->
+  <div class="clock" aria-hidden="true"><i class="hand hh"></i><i class="hand mm"></i><i class="pin"></i></div>
+
+  <!-- Estante con libros -->
+  <div class="shelf" aria-hidden="true">
+    <div class="items">
+      <span class="books">
+        @for (c of books; track $index) {
+          <i [style.--c]="c" [style.--h]="(70 + (($index * 17) % 30)) + '%'"></i>
+        }
+      </span>
+      <span class="deco">🪴</span>
+      <span class="deco">☕</span>
+    </div>
+    <div class="board"></div>
+  </div>
+  <!-- Pared: ventana con cortinas y cuadros -->
+  <div class="window" aria-hidden="true">
+    <span class="rod"></span>
+    <span class="curtain l"></span>
+    <span class="curtain r"></span>
+  </div>
+  <div class="wall-frame wf-1" aria-hidden="true"></div>
+  <div class="wall-frame wf-2" aria-hidden="true"></div>
+
+  <!-- Piso -->
+  <div class="floor" aria-hidden="true"></div>
+  <span class="plant" aria-hidden="true">🪴</span>
+  <span class="toy bone" aria-hidden="true">🦴</span>
+  <span class="toy ball" aria-hidden="true">🎾</span>
+  <span class="toy bowl" aria-hidden="true">🥣</span>
+  <div class="lamp" aria-hidden="true"><i class="shade"></i><i class="pole"></i><i class="base"></i></div>
+
+  <p class="hint top">Hay algo para ti</p>
+
+  <section class="stage">
+    <div class="rug" aria-hidden="true"></div>
+
+    <!-- Perritos de la izquierda -->
+    <div class="dogs l">
+      @for (d of dogsLeft; track d.k) {
+        <app-dog class="dog" [spec]="d.spec" side="l" [k]="d.k" [barking]="opening()" />
+      }
+    </div>
+
+    <!-- Mesa con el regalo -->
+    <div class="table">
+      <span class="spot" aria-hidden="true"></span>
+
+      <button type="button" class="gift" (click)="open()" aria-label="Abrir el regalo">
+        <span class="shadow" aria-hidden="true"></span>
+        <span class="glow" aria-hidden="true"></span>
+
+        <span class="box">
+          <span class="body-box">
+            <i class="rib-v"></i>
+            <i class="rib-h"></i>
+          </span>
+          <span class="lid">
+            <i class="rib-v"></i>
+            <span class="bow">
+              <i class="loop l"></i>
+              <i class="loop r"></i>
+              <i class="tail-r l"></i>
+              <i class="tail-r r"></i>
+              <i class="knot"></i>
+            </span>
+          </span>
+        </span>
+      </button>
+
+      <span class="top-board" aria-hidden="true"></span>
+      <span class="legs" aria-hidden="true"><i></i><i></i></span>
+    </div>
+
+    <!-- Perritos de la derecha -->
+    <div class="dogs r">
+      @for (d of dogsRight; track d.k) {
+        <app-dog class="dog" [spec]="d.spec" side="r" [k]="d.k" [barking]="opening()" />
+      }
+    </div>
+  </section>
+
+  <p class="hint bottom">Toca el regalo para abrirlo</p>
+
+  <div class="flash" aria-hidden="true"></div>
+</main>

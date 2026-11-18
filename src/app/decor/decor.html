@@ -1,0 +1,31 @@
+<div class="rays"></div>
+
+<div class="bunting">
+  @for (c of flags; track $index) {
+    <span class="flag" [style.--c]="c" [style.--k]="$index"></span>
+  }
+</div>
+
+@for (s of stars; track $index) {
+  <span class="star" [style.left.%]="s.x" [style.top.%]="s.y" [style.--sz]="s.size + 'rem'" [style.--dur]="s.dur + 's'" [style.--dl]="s.delay + 's'">✦</span>
+}
+
+@for (p of pieces; track $index) {
+  <span
+    class="piece"
+    [class.round]="p.round"
+    [style.left.%]="p.x"
+    [style.--dx]="p.dx + 'px'"
+    [style.--w]="p.w + 'px'"
+    [style.--c]="p.color"
+    [style.--dur]="p.dur + 's'"
+    [style.--dl]="p.delay + 's'"
+  ></span>
+}
+
+@for (e of rising; track $index) {
+  <span class="float" [style.--n]="$index">{{ e }}</span>
+}
+
+<div class="corner left"><span>🎈</span><span>🎈</span><span>🎁</span></div>
+<div class="corner right"><span>🎁</span><span>🎈</span><span>🎈</span></div>

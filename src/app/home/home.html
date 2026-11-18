@@ -1,0 +1,74 @@
+<main class="screen">
+  <app-party-decor />
+  <app-sound-toggle />
+
+  <h1 class="title" [attr.aria-label]="'¡Feliz Cumpleaños, ' + name() + '!'">
+    <span class="spark" aria-hidden="true">🎉</span>
+    @for (word of titleWords(); track $index) {
+      <span class="word" aria-hidden="true">
+        @for (l of word.letters; track l.i) {
+          <span class="letter" [style.--i]="l.i">{{ l.char }}</span>
+        }
+      </span>
+      @if (!$last) {
+        <span class="sp" aria-hidden="true">{{ ' ' }}</span>
+      }
+    }
+    <span class="spark spark-r" aria-hidden="true">🎉</span>
+  </h1>
+  <p class="subtitle">Haz clic en el sobre para abrir tu carta 🎁</p>
+
+  <section class="stage">
+    <div class="halo" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
+
+    <div
+      class="center photo"
+      role="button"
+      tabindex="0"
+      title="¡Haz clic para escuchar una sorpresa! 🎶"
+      (click)="celebrate()"
+      (keydown.enter)="celebrate()"
+    >
+      @if (failed().has(centerPhoto)) {
+        <div class="placeholder">🎂</div>
+      } @else {
+        <img [src]="centerPhoto" [alt]="name()" (error)="markFailed(centerPhoto)" />
+      }
+    </div>
+
+    <div class="orbit">
+      @for (src of orbitPhotos; track src) {
+        <div class="slot" [style.--i]="$index">
+          <div class="photo counter" (mouseenter)="sound.bloop()" (click)="sound.pop()">
+            @if (failed().has(src)) {
+              <div class="placeholder">{{ emojis[$index] }}</div>
+            } @else {
+              <img [src]="src" alt="Recuerdo {{ $index + 1 }}" (error)="markFailed(src)" />
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Explosión de confeti al tocar la foto central -->
+    @for (p of burst(); track $index) {
+      <span class="burst" aria-hidden="true" [style.--dx]="p.dx" [style.--dy]="p.dy" [style.--r]="p.rot + 'deg'" [style.--dl]="p.delay + 's'">{{ p.emoji }}</span>
+    }
+
+    <!-- Sobre justo debajo de la foto central -->
+    <button
+      type="button"
+      class="envelope-btn"
+      (click)="openLetter()"
+      (mouseenter)="sound.chime()"
+      aria-label="Abrir la carta de cumpleaños"
+    >
+      <span class="envelope" [class.open]="opening()">
+        <span class="flap"></span>
+        <span class="pocket"></span>
+        <span class="seal">🎂</span>
+      </span>
+    </button>
+  </section>
+</main>
