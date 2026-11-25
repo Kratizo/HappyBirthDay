@@ -16,7 +16,7 @@ const COLORS = ['#ef4444', '#f59e0b', '#fde047', '#22c55e', '#38bdf8', '#a78bfa'
 @Component({
   selector: 'app-party-decor',
   templateUrl: './decor.html',
-  styleUrl: './decor.css'
+  host: { class: 'absolute inset-0 z-0 overflow-hidden pointer-events-none' }
 })
 export class Decor {
   protected readonly flags = Array.from({ length: 18 }, (_, i) => COLORS[i % 7]);

@@ -1,18 +1,34 @@
-<div class="rays"></div>
+<div
+  class="absolute top-[45%] left-1/2 mt-[-95vmax] ml-[-95vmax] h-[190vmax] w-[190vmax] animate-decor-rays bg-[image:repeating-conic-gradient(from_0deg,rgba(255,255,255,0.16)_0_7deg,transparent_7deg_20deg)] [-webkit-mask-image:radial-gradient(circle,#000_0%,transparent_60%)] [mask-image:radial-gradient(circle,#000_0%,transparent_60%)] motion-reduce:animate-none"
+></div>
 
-<div class="bunting">
+<div
+  class="absolute top-0 right-0 left-0 box-border flex border-t-4 border-solid border-t-[rgba(255,255,255,0.55)] pt-[6px]"
+>
   @for (c of flags; track $index) {
-    <span class="flag" [style.--c]="c" [style.--k]="$index"></span>
+    <span
+      class="mx-[2px] h-[clamp(26px,4.5vw,52px)] flex-1 origin-top animate-decor-flag bg-[color:var(--c)] [clip-path:polygon(0_0,100%_0,50%_100%)] motion-reduce:animate-none"
+      [style.--c]="c"
+      [style.--k]="$index"
+    ></span>
   }
 </div>
 
 @for (s of stars; track $index) {
-  <span class="star" [style.left.%]="s.x" [style.top.%]="s.y" [style.--sz]="s.size + 'rem'" [style.--dur]="s.dur + 's'" [style.--dl]="s.delay + 's'">✦</span>
+  <span
+    class="absolute animate-decor-twinkle text-[length:var(--sz)] text-[#fff8c5] [text-shadow:0_0_10px_#fde047] motion-reduce:animate-none"
+    [style.left.%]="s.x"
+    [style.top.%]="s.y"
+    [style.--sz]="s.size + 'rem'"
+    [style.--dur]="s.dur + 's'"
+    [style.--dl]="s.delay + 's'"
+    >✦</span
+  >
 }
 
 @for (p of pieces; track $index) {
   <span
-    class="piece"
+    class="absolute top-[-20px] h-[calc(var(--w)_*_0.5)] w-[var(--w)] animate-decor-fall bg-[color:var(--c)] opacity-90 motion-reduce:animate-none [&.round]:h-[var(--w)] [&.round]:rounded-[50%]"
     [class.round]="p.round"
     [style.left.%]="p.x"
     [style.--dx]="p.dx + 'px'"
@@ -24,8 +40,28 @@
 }
 
 @for (e of rising; track $index) {
-  <span class="float" [style.--n]="$index">{{ e }}</span>
+  <span
+    class="absolute bottom-[-3rem] left-[calc(var(--n)_*_13%_+_3%)] animate-decor-rise text-[2rem] opacity-[0.85] motion-reduce:animate-none"
+    [style.--n]="$index"
+    >{{ e }}</span
+  >
 }
 
-<div class="corner left"><span>🎈</span><span>🎈</span><span>🎁</span></div>
-<div class="corner right"><span>🎁</span><span>🎈</span><span>🎈</span></div>
+<div
+  class="absolute bottom-[1vh] left-[1vw] flex items-end text-[length:clamp(2.5rem,7vw,5.5rem)] [filter:drop-shadow(0_6px_8px_rgba(0,0,0,0.3))]"
+>
+  <span class="inline-block origin-[50%_100%] animate-decor-bob motion-reduce:animate-none">🎈</span
+  ><span
+    class="mb-[1.2rem] inline-block origin-[50%_100%] animate-decor-bob [animation-delay:-1s] motion-reduce:animate-none"
+    >🎈</span
+  ><span class="inline-block origin-[50%_100%] animate-decor-bob [animation-delay:-2s] motion-reduce:animate-none">🎁</span>
+</div>
+<div
+  class="absolute right-[1vw] bottom-[1vh] flex items-end text-[length:clamp(2.5rem,7vw,5.5rem)] [filter:drop-shadow(0_6px_8px_rgba(0,0,0,0.3))]"
+>
+  <span class="inline-block origin-[50%_100%] animate-decor-bob motion-reduce:animate-none">🎁</span
+  ><span
+    class="mb-[1.2rem] inline-block origin-[50%_100%] animate-decor-bob [animation-delay:-1s] motion-reduce:animate-none"
+    >🎈</span
+  ><span class="inline-block origin-[50%_100%] animate-decor-bob [animation-delay:-2s] motion-reduce:animate-none">🎈</span>
+</div>

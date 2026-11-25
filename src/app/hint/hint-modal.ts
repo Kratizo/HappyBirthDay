@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, inject, output, signal } from '@angular/core';
+import { HINT_PHOTOS } from '../photos';
 import { SoundService } from '../sound/sound.service';
 import { GIFT_HINT } from './hint';
 
@@ -9,11 +10,12 @@ import { GIFT_HINT } from './hint';
 @Component({
   selector: 'app-hint-modal',
   templateUrl: './hint-modal.html',
-  styleUrl: './hint-modal.css'
+  host: { class: 'contents' }
 })
 export class HintModal implements OnInit, OnDestroy {
   protected readonly sound = inject(SoundService);
   protected readonly hint = GIFT_HINT;
+  protected readonly photos = HINT_PHOTOS;
 
   /** Se emite cuando la ventana termina de cerrarse. */
   readonly closed = output<void>();

@@ -16,7 +16,7 @@ export interface DogSpec {
 @Component({
   selector: 'app-dog',
   templateUrl: './dog.html',
-  styleUrl: './dog.css'
+  host: { class: 'relative block flex-none w-(--dw) aspect-[200/260]' }
 })
 export class Dog {
   readonly spec = input.required<DogSpec>();

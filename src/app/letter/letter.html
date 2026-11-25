@@ -1,48 +1,112 @@
-<main class="screen">
+<main
+  class="relative box-border flex min-h-dvh flex-col items-center gap-6 overflow-x-hidden bg-[radial-gradient(circle_at_50%_30%,#ff9ad5_0%,#a855f7_45%,#312e81_100%)] pt-[4.5rem] pr-4 pb-8 pl-4 [font-family:'Segoe_UI',system-ui,sans-serif] max-[900px]:gap-5 max-[900px]:pt-[calc(4.25rem_+_env(safe-area-inset-top))] max-[900px]:pr-[max(1rem,env(safe-area-inset-right))] max-[900px]:pb-[calc(2rem_+_env(safe-area-inset-bottom))] max-[900px]:pl-[max(1rem,env(safe-area-inset-left))]"
+>
   <app-party-decor />
-  <a routerLink="/fiesta" class="back">← Volver</a>
+  <a
+    routerLink="/fiesta"
+    class="absolute top-4 left-4 rounded-full bg-[rgba(255,255,255,0.2)] px-[0.9rem] py-[0.4rem] font-semibold text-white no-underline max-[481px]:top-[calc(0.75rem_+_env(safe-area-inset-top))] max-[481px]:left-3 max-[481px]:px-3 max-[481px]:py-[0.35rem] max-[481px]:text-[0.9rem] [&:hover]:bg-[rgba(255,255,255,0.35)]"
+    >← Volver</a
+  >
   <app-sound-toggle />
 
-  <span class="envelope" [class.open]="envelopeOpen()">
-    <span class="flap"></span>
-    <span class="pocket"></span>
-    <span class="seal">🎂</span>
+  <span
+    class="group/env relative block aspect-[3/2] w-[var(--ew)] flex-none rounded-[6px] bg-[#fbbf24] shadow-[0_8px_20px_rgba(0,0,0,0.35)] [--ew:150px] [perspective:600px] [transition:transform_0.25s] max-[481px]:[--ew:120px] [@media(max-height:500px)_and_(orientation:landscape)]:[--ew:90px]"
+    [class.open]="envelopeOpen()"
+  >
+    <span
+      class="absolute top-0 left-0 z-3 h-[58%] w-full origin-top bg-[#f97316] [clip-path:polygon(0_0,100%_0,50%_100%)] [transition:transform_0.7s_ease-in-out] group-[.open]/env:[transform:rotateX(180deg)]"
+    ></span>
+    <span class="absolute inset-0 z-2 rounded-[6px] bg-[#fde68a] [clip-path:polygon(0_0,50%_58%,100%_0,100%_100%,0_100%)]"></span>
+    <span
+      class="absolute top-[58%] left-1/2 z-4 text-[length:calc(var(--ew)_*_0.2)] [transform:translate(-50%,-50%)] [transition:opacity_0.3s] group-[.open]/env:opacity-0"
+      >🎂</span
+    >
   </span>
 
-  <article class="paper" [class.show]="envelopeOpen()" (click)="skip()" title="Haz clic para ver todo el texto">
-    <span class="tape tape-l" aria-hidden="true"></span>
-    <span class="tape tape-r" aria-hidden="true"></span>
-    <span class="sticker st-tl" aria-hidden="true">🎀</span>
-    <span class="sticker st-tr" aria-hidden="true">⭐</span>
-    <span class="sticker st-bl" aria-hidden="true">🌸</span>
-    <span class="sticker st-br" aria-hidden="true">💖</span>
-    <span class="edge" aria-hidden="true"></span>
-    <p class="text">{{ typed() }}<span class="cursor" [class.hidden]="done()">|</span></p>
+  <article
+    class="relative z-1 box-border min-h-[min(55vh,28rem)] w-[min(92vw,640px)] origin-top cursor-pointer rounded-[6px] border-[3px] border-solid border-white bg-[#fffdf5] bg-[image:repeating-linear-gradient(transparent_0_1.9rem,rgba(236,111,179,0.18)_1.9rem_2rem)] p-[clamp(1.25rem,4vw,2.5rem)] opacity-0 shadow-[0_14px_40px_rgba(0,0,0,0.4)] outline-3 outline-offset-4 outline-[rgba(236,111,179,0.55)] outline-solid [transform:translateY(-70px)_scale(0.85)] [transition:opacity_0.8s_ease_0.6s,transform_1s_cubic-bezier(0.2,0.9,0.3,1.1)_0.6s] max-[900px]:w-[min(100%,640px)] max-[481px]:px-4 max-[481px]:py-5 [&.show]:opacity-100 [&.show]:[transform:none] [@media(max-height:500px)_and_(orientation:landscape)]:min-h-0"
+    [class.show]="envelopeOpen()"
+    (click)="skip()"
+    title="Haz clic para ver todo el texto"
+  >
+    <span
+      class="pointer-events-none absolute top-[-14px] left-[-22px] h-[28px] w-[92px] bg-[image:repeating-linear-gradient(45deg,rgba(253,224,71,0.85)_0_8px,rgba(249,168,212,0.85)_8px_16px)] opacity-[0.92] shadow-[0_2px_5px_rgba(0,0,0,0.25)] [transform:rotate(-38deg)]"
+      aria-hidden="true"
+    ></span>
+    <span
+      class="pointer-events-none absolute top-[-14px] right-[-22px] h-[28px] w-[92px] bg-[image:repeating-linear-gradient(45deg,rgba(253,224,71,0.85)_0_8px,rgba(249,168,212,0.85)_8px_16px)] opacity-[0.92] shadow-[0_2px_5px_rgba(0,0,0,0.25)] [transform:rotate(38deg)]"
+      aria-hidden="true"
+    ></span>
+    <span
+      class="pointer-events-none absolute top-[-0.7rem] left-[1.6rem] animate-letter-wiggle text-[length:clamp(1.6rem,5vw,2.4rem)] leading-none [--r:-14deg] [filter:drop-shadow(0_3px_3px_rgba(0,0,0,0.3))] motion-reduce:animate-none"
+      aria-hidden="true"
+      >🎀</span
+    >
+    <span
+      class="pointer-events-none absolute top-[-0.7rem] right-[1.6rem] animate-letter-wiggle text-[length:clamp(1.6rem,5vw,2.4rem)] leading-none [--r:14deg] [animation-delay:-1s] [filter:drop-shadow(0_3px_3px_rgba(0,0,0,0.3))] motion-reduce:animate-none"
+      aria-hidden="true"
+      >⭐</span
+    >
+    <span
+      class="pointer-events-none absolute bottom-[-0.8rem] left-[-0.6rem] animate-letter-wiggle text-[length:clamp(1.6rem,5vw,2.4rem)] leading-none [--r:-12deg] [animation-delay:-2s] [filter:drop-shadow(0_3px_3px_rgba(0,0,0,0.3))] motion-reduce:animate-none"
+      aria-hidden="true"
+      >🌸</span
+    >
+    <span
+      class="pointer-events-none absolute right-[-0.6rem] bottom-[-0.8rem] animate-letter-wiggle text-[length:clamp(1.6rem,5vw,2.4rem)] leading-none [--r:12deg] [animation-delay:-0.5s] [filter:drop-shadow(0_3px_3px_rgba(0,0,0,0.3))] motion-reduce:animate-none"
+      aria-hidden="true"
+      >💖</span
+    >
+    <span
+      class="pointer-events-none absolute inset-[8px] rounded-[4px] border-2 border-dashed border-[rgba(168,85,247,0.4)]"
+      aria-hidden="true"
+    ></span>
+    <p
+      class="[overflow-wrap:anywhere] text-[length:clamp(1.05rem,2.6vw,1.4rem)] leading-8 whitespace-pre-wrap text-[#4a1d6a] [font-family:'Segoe_Print','Brush_Script_MT','Comic_Sans_MS',cursive]"
+      >{{ typed()
+      }}<span class="animate-letter-blink text-[#ec6fb3]" [class.hidden]="done()">|</span></p
+    >
   </article>
 
   <!-- Aparece cuando se termina de leer la carta -->
   @if (done()) {
     <button
       type="button"
-      class="leave"
+      class="group/leave relative z-6 inline-flex flex-none animate-letter-leave cursor-pointer items-center gap-[0.55rem] rounded-full border-3 border-solid border-white bg-[linear-gradient(135deg,#fb7185,#e11d48)] px-[1.9rem] py-[0.8rem] text-[length:clamp(1.05rem,3vw,1.3rem)] leading-none font-extrabold tracking-[0.02em] text-white shadow-[0_8px_20px_rgba(0,0,0,0.4),0_0_0_6px_rgba(255,255,255,0.15)] [font-family:'Segoe_UI',system-ui,sans-serif] disabled:cursor-default motion-reduce:animate-none! [&.shake]:animate-letter-shake [&:hover:not(:disabled)]:[filter:brightness(1.1)] [&:hover:not(:disabled)]:[transform:scale(1.06)]"
       [class.shake]="leaving()"
       [disabled]="leaving()"
       (mouseenter)="sound.bloop()"
       (click)="leave()"
     >
-      <span class="door" aria-hidden="true">🚪</span> Ya te vas
+      <span
+        class="inline-block origin-[0_50%] text-[1.4em] group-[:hover]/leave:animate-letter-door-knock motion-reduce:animate-none!"
+        aria-hidden="true"
+        >🚪</span
+      >
+      Ya te vas
     </button>
   }
 
-  <p class="footer-deco" aria-hidden="true">
-    <span>🎂</span><span>🎁</span><span>🎈</span><span>🥳</span><span>🎈</span><span>🎁</span><span>🎂</span>
+  <p
+    class="relative z-1 flex flex-wrap justify-center gap-x-[0.9rem] gap-y-2 text-[length:clamp(1.4rem,4.5vw,2.2rem)] [filter:drop-shadow(0_3px_4px_rgba(0,0,0,0.3))]"
+    aria-hidden="true"
+  >
+    <span class="inline-block animate-letter-hop motion-reduce:animate-none">🎂</span
+    ><span class="inline-block animate-letter-hop [animation-delay:-0.4s] motion-reduce:animate-none">🎁</span
+    ><span class="inline-block animate-letter-hop [animation-delay:-0.8s] motion-reduce:animate-none">🎈</span
+    ><span class="inline-block animate-letter-hop [animation-delay:-0.4s] motion-reduce:animate-none">🥳</span
+    ><span class="inline-block animate-letter-hop motion-reduce:animate-none">🎈</span
+    ><span class="inline-block animate-letter-hop [animation-delay:-0.8s] motion-reduce:animate-none">🎁</span
+    ><span class="inline-block animate-letter-hop motion-reduce:animate-none">🎂</span>
   </p>
 
-  <div class="gallery">
+  <div
+    class="contents max-[900px]:flex max-[900px]:w-full max-[900px]:max-w-[640px] max-[900px]:flex-wrap max-[900px]:items-center max-[900px]:justify-center max-[900px]:gap-x-4 max-[900px]:gap-y-5 max-[900px]:pt-2 max-[900px]:pb-4"
+  >
     <!-- Marcos de fotos dispersos alrededor de la carta -->
     @for (f of frames; track f.src) {
       <figure
-        class="frame"
+        class="absolute z-0 box-border w-[var(--w)] rounded-[4px] bg-white p-[calc(var(--w)_*_0.06)_calc(var(--w)_*_0.06)_calc(var(--w)_*_0.2)] opacity-0 shadow-[0_10px_26px_rgba(0,0,0,0.4)] [--w:calc(clamp(80px,13vw,190px)_*_var(--s))] [transform:rotate(var(--rot))_scale(0.2)] [transition:opacity_0.6s_ease_var(--d),transform_0.8s_cubic-bezier(0.2,1.5,0.4,1)_var(--d)] motion-reduce:animate-none! max-[900px]:relative max-[900px]:inset-auto! max-[900px]:flex-none max-[900px]:[--w:calc(clamp(96px,28vw,170px)_*_var(--s))] max-[481px]:[--w:calc(clamp(88px,42vw,150px)_*_var(--s))] [&.show]:animate-letter-drift [&.show]:opacity-100 [&.show]:[transform:rotate(var(--rot))_scale(1)] [&.show:hover]:[animation-play-state:paused] [&:hover]:z-2"
         [class.show]="envelopeOpen()"
         [style.left]="f.left"
         [style.top]="f.top"
@@ -52,11 +116,11 @@
         (mouseenter)="sound.bloop()"
         (click)="sound.pop()"
       >
-        <div class="pic">
+        <div class="aspect-square overflow-hidden bg-[linear-gradient(135deg,#fde68a,#f9a8d4)]">
           @if (failed().has(f.src)) {
-            <span class="ph">{{ f.emoji }}</span>
+            <span class="grid h-full w-full place-items-center text-[length:calc(var(--w)_*_0.4)]">{{ f.emoji }}</span>
           } @else {
-            <img [src]="f.src" alt="Foto de recuerdo" (error)="markFailed(f.src)" />
+            <img class="block h-full w-full object-cover" [src]="f.src" alt="Foto de recuerdo" (error)="markFailed(f.src)" />
           }
         </div>
       </figure>
@@ -64,12 +128,27 @@
   </div>
 
   <!-- Globos que suben desde abajo de la pantalla -->
-  <div class="balloons" aria-hidden="true">
+  <div
+    class="pointer-events-none fixed inset-0 z-5 overflow-hidden max-[900px]:opacity-[0.55] motion-reduce:hidden"
+    aria-hidden="true"
+  >
     @for (b of balloons; track b.text) {
-      <div class="balloon" [style.--x]="b.x" [style.--xs]="b.xs" [style.--s]="b.s" [style.--c]="b.color" [style.--dur]="b.dur + 's'" [style.--d]="b.delay + 's'">
-        <div class="sway">
-          <div class="body">{{ b.text }}</div>
-          <span class="string"></span>
+      <div
+        class="absolute bottom-[-300px] left-[calc(var(--x)_*_1%)] animate-letter-rise min-[1000px]:left-[calc(var(--xs)_*_1%)]"
+        [style.--x]="b.x"
+        [style.--xs]="b.xs"
+        [style.--s]="b.s"
+        [style.--c]="b.color"
+        [style.--dur]="b.dur + 's'"
+        [style.--d]="b.delay + 's'"
+      >
+        <div class="relative origin-[50%_100%] animate-letter-sway">
+          <div
+            class="relative box-border grid aspect-[0.82] w-[calc(125px_*_var(--s))] place-items-center rounded-[50%_50%_48%_48%/56%_56%_44%_44%] bg-[color:var(--c)] bg-[image:radial-gradient(circle_at_30%_26%,rgba(255,255,255,0.5),transparent_32%)] p-[14%] text-center text-[length:calc(0.78rem_*_var(--s))] leading-[1.2] font-extrabold text-white opacity-[0.94] shadow-[inset_-8px_-10px_18px_rgba(0,0,0,0.18)] [text-shadow:0_1px_3px_rgba(0,0,0,0.45)] after:absolute after:bottom-[-8px] after:left-1/2 after:border-r-[7px] after:border-b-[10px] after:border-l-[7px] after:border-r-transparent after:border-b-[color:var(--c)] after:border-l-transparent after:content-[''] after:[transform:translateX(-50%)] max-[900px]:w-[calc(95px_*_var(--s))] max-[900px]:text-[length:calc(0.66rem_*_var(--s))]"
+          >
+            {{ b.text }}
+          </div>
+          <span class="absolute top-full left-1/2 mt-2 h-[80px] w-[1.5px] bg-[rgba(255,255,255,0.7)]"></span>
         </div>
       </div>
     }

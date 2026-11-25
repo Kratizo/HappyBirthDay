@@ -9,7 +9,7 @@ import { SoundService } from '../sound/sound.service';
   selector: 'app-home',
   imports: [Decor, SoundToggle],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  host: { class: 'block [--spin:32s]' }
 })
 export class Home {
   private readonly router = inject(Router);

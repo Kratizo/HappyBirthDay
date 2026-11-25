@@ -1,53 +1,119 @@
-<div class="backdrop" [class.closing]="closing()" (click)="close()">
+<div
+  class="fixed inset-0 z-100 box-border grid place-items-center bg-[rgba(20,8,45,0.72)] p-4 backdrop-blur-[4px]"
+  [class]="closing() ? 'animate-hint-fade-out' : 'animate-hint-fade-in'"
+  (click)="close()"
+>
   <section
-    class="dialog"
+    class="relative box-border flex max-h-[calc(100dvh-2rem)] w-[min(100%,440px)] flex-col items-center overflow-y-auto overflow-x-hidden rounded-[26px] border-[3px] border-white/85 bg-[radial-gradient(circle_at_20%_12%,rgba(255,255,255,0.35)_0_2px,transparent_3px),radial-gradient(circle_at_80%_22%,rgba(255,255,255,0.4)_0_2px,transparent_3px),radial-gradient(circle_at_62%_8%,rgba(255,255,255,0.3)_0_1.5px,transparent_3px),linear-gradient(170deg,#6d28d9_0%,#a855f7_55%,#f472b6_100%)] pt-4 font-[family-name:Segoe_UI,system-ui,sans-serif] shadow-[0_24px_70px_rgba(0,0,0,0.55)]"
+    [class]="closing() ? 'animate-hint-pop-out' : 'animate-hint-pop-in'"
     role="dialog"
     aria-modal="true"
     aria-labelledby="hint-title"
     (click)="$event.stopPropagation()"
   >
-    <button type="button" class="x" aria-label="Cerrar" (click)="close()">✕</button>
+    <button
+      type="button"
+      class="absolute right-[0.6rem] top-[0.6rem] z-6 size-[2.2rem] cursor-pointer rounded-full border-2 border-white/70 bg-white/22 text-base text-white transition-transform duration-200 hover:rotate-90 hover:scale-[1.12]"
+      aria-label="Cerrar"
+      (click)="close()"
+    >✕</button>
 
     <!-- Confeti al terminar de leer -->
     @if (done()) {
-      <div class="rain" aria-hidden="true">
+      <div class="pointer-events-none absolute inset-0 z-5 overflow-hidden motion-reduce:hidden" aria-hidden="true">
         @for (c of confetti; track $index) {
-          <span [style.left.%]="c.x" [style.animation-delay]="c.d + 's'" [style.animation-duration]="c.dur + 's'">{{ c.e }}</span>
+          <span
+            class="animate-hint-fall absolute -top-8 text-[1.3rem]"
+            [style.left.%]="c.x"
+            [style.animation-delay]="c.d + 's'"
+            [style.animation-duration]="c.dur + 's'"
+          >{{ c.e }}</span>
         }
       </div>
     }
 
-    <div class="stage">
-      <div class="tuber" [class.up]="stage() >= 1">
-        <!-- Cuerpo: tubo plateado liso, sin cara -->
-        <div class="body" aria-hidden="true">
-          <span class="rim"></span>
-          <span class="shine"></span>
-          <span class="band b1"></span>
-          <span class="band b2"></span>
+    <div class="relative z-2 flex w-full items-end justify-center gap-2 overflow-hidden pt-[26px] max-[400px]:[zoom:0.82]">
+      <!-- Perrito 1 (izquierda) -->
+      <div
+        class="mb-3 box-border size-20 flex-none -rotate-6 overflow-hidden rounded-full border-4 border-white bg-white shadow-[0_6px_14px_rgba(0,0,0,0.4)] transition-transform delay-200 duration-[750ms] ease-[cubic-bezier(0.25,1.55,0.4,1)] motion-reduce:duration-10"
+        [class]="stage() >= 1 ? 'translate-y-0 animate-hint-bob' : 'translate-y-[250%]'"
+      >
+        <img class="size-full object-cover object-[50%_35%]" [src]="photos.dogLeft" alt="Perrito 1" />
+      </div>
+
+      <div
+        class="relative box-border flex w-[250px] justify-center pb-[14px] pt-[124px] transition-transform duration-[750ms] ease-[cubic-bezier(0.25,1.55,0.4,1)] max-[380px]:origin-bottom motion-reduce:duration-10"
+        [class]="stage() >= 1 ? 'translate-y-0' : 'translate-y-[105%]'"
+      >
+        <!-- Cuerpo: tubo plateado -->
+        <div
+          class="absolute inset-x-0 bottom-0 top-4 z-1 rounded-t-lg bg-[linear-gradient(90deg,#5b6574_0%,#aeb7c4_14%,#f4f6f9_30%,#d3d9e1_48%,#98a2b0_74%,#5b6574_100%)] shadow-[inset_0_-10px_18px_rgba(0,0,0,0.18)]"
+          aria-hidden="true"
+        >
+          <!-- Borde (boca) del tubo -->
+          <span class="absolute -left-[10px] -right-[10px] -top-[14px] h-[34px] rounded-[10px] bg-[linear-gradient(90deg,#4b5563_0%,#c3cbd6_16%,#ffffff_32%,#d9dee6_52%,#9aa4b2_78%,#4b5563_100%)] shadow-[0_4px_8px_rgba(0,0,0,0.3),inset_0_-4px_0_rgba(0,0,0,0.15)]"></span>
+          <!-- Brillo vertical -->
+          <span class="absolute bottom-[18px] left-[14px] top-[26px] w-3 rounded-lg bg-white/55"></span>
+          <!-- Anillos del tubo -->
+          <span class="absolute inset-x-0 top-[130px] h-[9px] bg-[linear-gradient(90deg,#4b5563_0%,#aab3c0_16%,#eef1f5_32%,#c4cbd6_52%,#8b95a4_78%,#4b5563_100%)] shadow-[0_2px_3px_rgba(0,0,0,0.25),inset_0_-2px_0_rgba(0,0,0,0.15)]"></span>
+          <span class="absolute inset-x-0 bottom-[22px] h-[9px] bg-[linear-gradient(90deg,#4b5563_0%,#aab3c0_16%,#eef1f5_32%,#c4cbd6_52%,#8b95a4_78%,#4b5563_100%)] shadow-[0_2px_3px_rgba(0,0,0,0.25),inset_0_-2px_0_rgba(0,0,0,0.15)]"></span>
+        </div>
+
+        <!-- Cara del tubo (foto "tubo") -->
+        <div
+          class="absolute left-1/2 top-[26px] z-2 box-border size-[92px] -translate-x-1/2 overflow-hidden rounded-full border-4 border-white bg-white shadow-[0_4px_10px_rgba(0,0,0,0.4)]"
+        >
+          <img class="size-full -translate-x-[19%] scale-[1.6] object-cover object-[50%_21%]" [src]="photos.tube" alt="Tubo" />
         </div>
 
         <!-- Cartel -->
-        <div class="sign" [class.show]="stage() >= 2">
-          <span class="nail nl"></span>
-          <span class="nail nr"></span>
-          <h2 id="hint-title">{{ hint.title }}</h2>
-          <ol>
+        <div
+          class="relative z-2 ml-[18px] box-border w-[214px] self-start rounded-lg border-[5px] border-[#a16207] bg-[#fef3c7] bg-[repeating-linear-gradient(transparent_0_1.5rem,rgba(161,98,7,0.1)_1.5rem_1.55rem)] px-[0.8rem] pb-[0.8rem] pt-[0.7rem] text-[#5b3a07] shadow-[0_8px_16px_rgba(0,0,0,0.35),inset_0_0_0_2px_rgba(255,255,255,0.5)] origin-bottom [transition:opacity_0.3s_ease,transform_0.55s_cubic-bezier(0.2,1.6,0.4,1)]"
+          [class]="stage() >= 2 ? 'animate-hint-sway opacity-100 [transform:rotate(-2deg)] motion-reduce:animate-none' : 'opacity-0 [transform:rotate(-2deg)_scale(0.4)]'"
+        >
+          <span class="absolute left-[5px] top-[5px] size-[7px] rounded-full bg-[#78716c] shadow-[inset_-1px_-1px_0_rgba(0,0,0,0.35)]"></span>
+          <span class="absolute right-[5px] top-[5px] size-[7px] rounded-full bg-[#78716c] shadow-[inset_-1px_-1px_0_rgba(0,0,0,0.35)]"></span>
+          <h2 id="hint-title" class="mb-[0.4rem] mt-[0.15rem] text-center text-[1.05rem] font-black tracking-[0.04em] text-[#be123c]">{{ hint.title }}</h2>
+          <ol class="m-0 list-none p-0 font-[family-name:Segoe_Print,Brush_Script_MT,Comic_Sans_MS,cursive] text-[0.88rem] leading-[1.3] [counter-reset:step]">
             @for (s of hint.steps; track $index) {
-              <li [class.show]="$index < shownSteps()">{{ s }}</li>
+              <li
+                class="relative mb-[0.3rem] pl-6 [counter-increment:step] [transition:opacity_0.35s_ease,transform_0.4s_cubic-bezier(0.2,1.4,0.4,1)] before:absolute before:left-0 before:top-[0.05em] before:grid before:size-[1.1rem] before:place-items-center before:rounded-full before:bg-[#ec4899] before:font-[family-name:Segoe_UI,system-ui,sans-serif] before:text-[0.7rem] before:font-extrabold before:leading-none before:text-white before:content-[counter(step)]"
+                [class]="$index < shownSteps() ? 'opacity-100 [transform:none]' : 'opacity-0 [transform:translateX(-10px)]'"
+              >{{ s }}</li>
             }
           </ol>
-          <p class="sig" [class.show]="done()">{{ hint.outro }}</p>
+          <p
+            class="mt-[0.2rem] text-right font-[family-name:Segoe_Print,Brush_Script_MT,Comic_Sans_MS,cursive] text-[0.85rem] text-[#64748b] transition-opacity duration-500 ease-[ease]"
+            [class]="done() ? 'opacity-100' : 'opacity-0'"
+          >{{ hint.outro }}</p>
         </div>
 
         <!-- Bracitos y manos que sostienen el cartel -->
-        <span class="arm l" aria-hidden="true"><i class="hand"></i></span>
-        <span class="arm r" aria-hidden="true"><i class="hand"></i></span>
+        <span class="absolute -left-[5px] top-[142px] z-3 h-[58px] w-[15px] origin-top -rotate-[22deg] rounded-lg bg-[linear-gradient(90deg,#6b7685,#eef1f5_50%,#6b7685)]" aria-hidden="true">
+          <i class="absolute -bottom-3 left-1/2 -ml-[13px] size-[26px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#ffffff,#c4cbd6_55%,#6b7685)] shadow-[0_2px_4px_rgba(0,0,0,0.3)]"></i>
+        </span>
+        <span class="absolute -right-[5px] top-[142px] z-3 h-[58px] w-[15px] origin-top rotate-[22deg] rounded-lg bg-[linear-gradient(90deg,#6b7685,#eef1f5_50%,#6b7685)]" aria-hidden="true">
+          <i class="absolute -bottom-3 left-1/2 -ml-[13px] size-[26px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#ffffff,#c4cbd6_55%,#6b7685)] shadow-[0_2px_4px_rgba(0,0,0,0.3)]"></i>
+        </span>
+      </div>
+
+      <!-- Perrito 2 (derecha) -->
+      <div
+        class="mb-3 box-border size-20 flex-none rotate-6 overflow-hidden rounded-full border-4 border-white bg-white shadow-[0_6px_14px_rgba(0,0,0,0.4)] transition-transform delay-300 duration-[750ms] ease-[cubic-bezier(0.25,1.55,0.4,1)] motion-reduce:duration-10"
+        [class]="stage() >= 1 ? 'translate-y-0 animate-hint-bob-alt' : 'translate-y-[250%]'"
+      >
+        <img class="size-full object-cover object-[50%_30%]" [src]="photos.dogRight" alt="Perrito 2" />
       </div>
     </div>
 
-    <div class="ground">
-      <button #okBtn type="button" class="ok" [class.show]="done()" (click)="close()">¡Entendido! 🎁</button>
+    <div class="relative z-3 box-border grid w-full place-items-center border-t-8 border-[#65a30d] bg-[linear-gradient(#92400e,#78350f)] px-4 py-[1.1rem] shadow-[inset_0_-4px_0_#84cc16]">
+      <button
+        #okBtn
+        type="button"
+        class="cursor-pointer rounded-full border-[3px] border-white bg-[linear-gradient(135deg,#f472b6,#ec4899)] px-[1.6rem] py-[0.65rem] font-[family-name:Segoe_UI,system-ui,sans-serif] text-base font-extrabold leading-none text-white shadow-[0_6px_14px_rgba(0,0,0,0.4)] [transition:opacity_0.4s_ease,transform_0.5s_cubic-bezier(0.2,1.6,0.4,1)] hover:brightness-110"
+        [class]="done() ? 'pointer-events-auto animate-hint-bounce opacity-100 [transform:none] motion-reduce:animate-none' : 'pointer-events-none opacity-0 [transform:translateY(8px)_scale(0.8)]'"
+        (click)="close()"
+      >¡Entendido! 🎁</button>
     </div>
   </section>
 </div>

@@ -11,7 +11,7 @@ import { DEDICATION } from './dedication';
   selector: 'app-letter',
   imports: [RouterLink, SoundToggle, Decor, HintModal],
   templateUrl: './letter.html',
-  styleUrl: './letter.css'
+  host: { class: 'block' }
 })
 export class Letter implements OnInit, OnDestroy {
   protected readonly sound = inject(SoundService);

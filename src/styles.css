@@ -2,60 +2,388 @@
 
 @import 'tailwindcss';
 
-body {
-  margin: 0;
+/* ---------- Keyframes: gift + dog ---------- */
+@theme {
+  @keyframes gift-breathe {
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes gift-nudge {
+    0%,
+    80%,
+    100% {
+      transform: rotate(0);
+    }
+    84% {
+      transform: rotate(-3deg);
+    }
+    88% {
+      transform: rotate(3deg);
+    }
+    92% {
+      transform: rotate(-2deg);
+    }
+    96% {
+      transform: rotate(1.5deg);
+    }
+  }
+
+  @keyframes gift-jump {
+    40% {
+      transform: translateY(-14%);
+    }
+  }
+
+  @keyframes gift-shake {
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+    20% {
+      transform: rotate(-4deg) translateX(-3px);
+    }
+    40% {
+      transform: rotate(4deg) translateX(3px);
+    }
+    60% {
+      transform: rotate(-3deg) translateX(-2px);
+    }
+    80% {
+      transform: rotate(3deg) translateX(2px);
+    }
+  }
+
+  @keyframes gift-flash {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes gift-bulb {
+    50% {
+      opacity: 0.45;
+      box-shadow: 0 0 4px 1px var(--c);
+    }
+  }
+
+  @keyframes gift-mote {
+    0%,
+    100% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translate(14px, -18px);
+    }
+  }
+
+  @keyframes gift-tick {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes gift-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+      animation-timing-function: ease-out;
+    }
+    50% {
+      transform: translateY(-1.1em);
+      animation-timing-function: ease-in;
+    }
+  }
+
+  @keyframes dog-wag {
+    from {
+      transform: rotate(8deg);
+    }
+    to {
+      transform: rotate(-26deg);
+    }
+  }
+
+  @keyframes dog-tilt {
+    0%,
+    100% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(4deg);
+    }
+  }
+
+  @keyframes dog-blink {
+    0%,
+    92%,
+    100% {
+      transform: scaleY(1);
+    }
+    96% {
+      transform: scaleY(0.1);
+    }
+  }
+
+  @keyframes dog-pant {
+    from {
+      transform: scaleY(0.85);
+    }
+    to {
+      transform: scaleY(1.1);
+    }
+  }
+
+  @keyframes dog-bark {
+    to {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+  }
 }
 
-/* ---------- Sobre (compartido entre pantallas) ---------- */
-.envelope {
-  --ew: 130px;
-  position: relative;
-  display: block;
-  width: var(--ew);
-  aspect-ratio: 3 / 2;
-  background: #fbbf24;
-  border-radius: 6px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  perspective: 600px;
-  transition: transform 0.25s;
-}
+/* ---------- Animations: home + letter + decor ---------- */
+@theme inline {
+  /* home */
+  --animate-home-hue: home-hue 6s linear infinite;
+  --animate-home-letter:
+    home-pop 0.8s cubic-bezier(0.2, 1.6, 0.4, 1) calc(var(--i) * 0.07s) backwards,
+    home-wave 1.8s ease-in-out calc(1.4s + var(--i) * 0.1s) infinite;
+  --animate-home-twirl: home-twirl 2.4s ease-in-out infinite;
+  --animate-home-bounce: home-bounce 2s ease-in-out infinite;
+  --animate-home-spin: home-spin var(--spin) linear infinite;
+  --animate-home-counter: home-counter var(--spin) linear infinite;
+  --animate-home-pulse: home-pulse 3s ease-in-out infinite;
+  --animate-home-halo: home-halo 4s ease-in-out infinite;
+  --animate-home-burst: home-burst 2.2s cubic-bezier(0.1, 0.8, 0.3, 1) var(--dl) forwards;
 
-.envelope .flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 58%;
-  background: #f97316;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center;
-  transition: transform 0.7s ease-in-out;
-  z-index: 3;
-}
+  @keyframes home-pop {
+    from {
+      opacity: 0;
+      transform: translateY(-1.5em) scale(0.2) rotate(-40deg);
+    }
+  }
 
-.envelope .pocket {
-  position: absolute;
-  inset: 0;
-  background: #fde68a;
-  border-radius: 6px;
-  clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
-  z-index: 2;
-}
+  @keyframes home-wave {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0) scale(1);
+    }
+    30% {
+      transform: translateY(-0.28em) rotate(-6deg) scale(1.15);
+    }
+    60% {
+      transform: translateY(0.05em) rotate(4deg) scale(0.97);
+    }
+  }
 
-.envelope .seal {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: calc(var(--ew) * 0.2);
-  z-index: 4;
-  transition: opacity 0.3s;
-}
+  @keyframes home-hue {
+    to {
+      filter: hue-rotate(360deg);
+    }
+  }
 
-.envelope.open .flap {
-  transform: rotateX(180deg);
-}
+  @keyframes home-twirl {
+    0%,
+    100% {
+      transform: rotate(-20deg) scale(1);
+    }
+    50% {
+      transform: rotate(20deg) scale(1.35);
+    }
+  }
 
-.envelope.open .seal {
-  opacity: 0;
+  @keyframes home-bounce {
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  @keyframes home-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes home-counter {
+    from {
+      transform: rotate(calc(var(--i) * -45deg));
+    }
+    to {
+      transform: rotate(calc(var(--i) * -45deg - 360deg));
+    }
+  }
+
+  @keyframes home-pulse {
+    50% {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+  }
+
+  @keyframes home-halo {
+    50% {
+      transform: scale(1.08);
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes home-burst {
+    from {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.3);
+    }
+    70% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: translate(calc(-50% + var(--dx) * var(--size) / 100), calc(-50% + var(--dy) * var(--size) / 100))
+        rotate(var(--r)) scale(1.3);
+    }
+  }
+
+  /* letter */
+  --animate-letter-wiggle: letter-wiggle 3.2s ease-in-out infinite alternate;
+  --animate-letter-hop: letter-hop 1.6s ease-in-out infinite;
+  --animate-letter-leave:
+    letter-leave-in 0.7s cubic-bezier(0.2, 1.6, 0.4, 1) both,
+    letter-leave-pulse 1.8s ease-in-out 0.9s infinite;
+  --animate-letter-shake: letter-leave-shake 0.35s ease-in-out infinite;
+  --animate-letter-door-knock: letter-door-knock 0.5s ease-in-out infinite alternate;
+  --animate-letter-blink: letter-blink 0.8s steps(1) infinite;
+  --animate-letter-drift: letter-drift 6s ease-in-out calc(var(--d) + 1s) infinite;
+  --animate-letter-rise: letter-rise var(--dur) linear var(--d) infinite backwards;
+  --animate-letter-sway: letter-sway 4s ease-in-out infinite alternate;
+
+  @keyframes letter-wiggle {
+    from {
+      transform: rotate(calc(var(--r) - 8deg)) scale(1);
+    }
+    to {
+      transform: rotate(calc(var(--r) + 8deg)) scale(1.15);
+    }
+  }
+
+  @keyframes letter-hop {
+    50% {
+      transform: translateY(-0.45em) rotate(8deg);
+    }
+  }
+
+  @keyframes letter-leave-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.5);
+    }
+  }
+
+  @keyframes letter-leave-pulse {
+    50% {
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        0 0 0 12px rgba(255, 255, 255, 0.05);
+      transform: scale(1.04);
+    }
+  }
+
+  @keyframes letter-leave-shake {
+    25% {
+      transform: translateX(-7px) rotate(-3deg);
+    }
+    75% {
+      transform: translateX(7px) rotate(3deg);
+    }
+  }
+
+  @keyframes letter-door-knock {
+    to {
+      transform: perspective(60px) rotateY(-35deg);
+    }
+  }
+
+  @keyframes letter-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes letter-drift {
+    50% {
+      transform: rotate(calc(var(--rot) * -0.5)) translateY(-10px) scale(1.03);
+    }
+  }
+
+  @keyframes letter-rise {
+    to {
+      transform: translateY(-140vh);
+    }
+  }
+
+  @keyframes letter-sway {
+    from {
+      transform: rotate(-5deg) translateX(-10px);
+    }
+    to {
+      transform: rotate(5deg) translateX(10px);
+    }
+  }
+
+  /* decor */
+  --animate-decor-rays: decor-rays 80s linear infinite;
+  --animate-decor-flag: decor-flag 2.6s ease-in-out calc(var(--k) * -0.35s) infinite alternate;
+  --animate-decor-twinkle: decor-twinkle var(--dur) ease-in-out var(--dl) infinite;
+  --animate-decor-fall: decor-fall var(--dur) linear var(--dl) infinite;
+  --animate-decor-rise: decor-rise calc(9s + var(--n) * 1.3s) linear calc(var(--n) * -2s) infinite;
+  --animate-decor-bob: decor-bob 3s ease-in-out infinite alternate;
+
+  @keyframes decor-rays {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes decor-flag {
+    from {
+      transform: rotate(-7deg);
+    }
+    to {
+      transform: rotate(7deg);
+    }
+  }
+
+  @keyframes decor-twinkle {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: scale(0.6) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.3) rotate(45deg);
+    }
+  }
+
+  @keyframes decor-fall {
+    to {
+      transform: translate(var(--dx), 110vh) rotate(720deg);
+    }
+  }
+
+  @keyframes decor-rise {
+    to {
+      transform: translateY(-115vh) rotate(40deg);
+    }
+  }
+
+  @keyframes decor-bob {
+    from {
+      transform: translateY(0) rotate(-6deg);
+    }
+    to {
+      transform: translateY(-14px) rotate(6deg);
+    }
+  }
 }

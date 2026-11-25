@@ -4,10 +4,12 @@ import { SoundService } from './sound.service';
 @Component({
   selector: 'app-sound-toggle',
   template: `
-    <div class="bar">
+    <div
+      class="fixed top-[calc(0.75rem_+_env(safe-area-inset-top))] right-[calc(0.75rem_+_env(safe-area-inset-right))] z-20 flex gap-2"
+    >
       <button
         type="button"
-        class="snd"
+        class="h-[2.8rem] w-[2.8rem] cursor-pointer rounded-full border-2 border-solid border-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.25)] text-[1.3rem] backdrop-blur-[6px] [transition:transform_0.2s] [&:hover]:[transform:scale(1.12)]"
         (click)="sound.toggleMusic()"
         [attr.aria-pressed]="sound.musicEnabled()"
         [attr.aria-label]="sound.musicEnabled() ? 'Silenciar música' : 'Activar música'"
@@ -17,7 +19,7 @@ import { SoundService } from './sound.service';
       </button>
       <button
         type="button"
-        class="snd"
+        class="h-[2.8rem] w-[2.8rem] cursor-pointer rounded-full border-2 border-solid border-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.25)] text-[1.3rem] backdrop-blur-[6px] [transition:transform_0.2s] [&:hover]:[transform:scale(1.12)]"
         (click)="sound.toggle()"
         [attr.aria-pressed]="sound.enabled()"
         [attr.aria-label]="sound.enabled() ? 'Silenciar efectos' : 'Activar efectos'"
@@ -26,30 +28,6 @@ import { SoundService } from './sound.service';
         {{ sound.enabled() ? '🔊' : '🔇' }}
       </button>
     </div>
-  `,
-  styles: `
-    .bar {
-      position: fixed;
-      top: calc(0.75rem + env(safe-area-inset-top));
-      right: calc(0.75rem + env(safe-area-inset-right));
-      z-index: 20;
-      display: flex;
-      gap: 0.5rem;
-    }
-    .snd {
-      width: 2.8rem;
-      height: 2.8rem;
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(6px);
-      font-size: 1.3rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .snd:hover {
-      transform: scale(1.12);
-    }
   `
 })
 export class SoundToggle {

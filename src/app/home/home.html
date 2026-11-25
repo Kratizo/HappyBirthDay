@@ -1,29 +1,54 @@
-<main class="screen">
+<main
+  class="relative box-border flex min-h-dvh flex-col items-center justify-center gap-2 overflow-hidden bg-[radial-gradient(circle_at_50%_40%,#ff9ad5_0%,#a855f7_45%,#312e81_100%)] pt-[calc(3.5rem_+_env(safe-area-inset-top))] pr-[max(0.5rem,env(safe-area-inset-right))] pb-[calc(0.5rem_+_env(safe-area-inset-bottom))] pl-[max(0.5rem,env(safe-area-inset-left))] text-white [font-family:'Segoe_UI',system-ui,sans-serif] max-[481px]:pt-[calc(3.25rem_+_env(safe-area-inset-top))] [@media(max-height:500px)_and_(orientation:landscape)]:flex-row [@media(max-height:500px)_and_(orientation:landscape)]:flex-wrap [@media(max-height:500px)_and_(orientation:landscape)]:gap-x-6 [@media(max-height:500px)_and_(orientation:landscape)]:gap-y-1 [@media(max-height:500px)_and_(orientation:landscape)]:pt-10"
+>
   <app-party-decor />
   <app-sound-toggle />
 
-  <h1 class="title" [attr.aria-label]="'¡Feliz Cumpleaños, ' + name() + '!'">
-    <span class="spark" aria-hidden="true">🎉</span>
+  <h1
+    class="relative z-2 animate-home-hue text-center text-[length:clamp(1.8rem,5.5vw,3.8rem)] leading-[1.2] font-black motion-reduce:animate-none max-[481px]:px-1 max-[481px]:text-[length:clamp(1.5rem,8vw,2.2rem)] [@media(max-height:500px)_and_(orientation:landscape)]:max-w-[26rem] [@media(max-height:500px)_and_(orientation:landscape)]:flex-[1_1_14rem] [@media(max-height:500px)_and_(orientation:landscape)]:text-[length:clamp(1.3rem,4vw,2rem)]"
+    [attr.aria-label]="'¡Feliz Cumpleaños, ' + name() + '!'"
+  >
+    <span class="mx-[0.25em] inline-block animate-home-twirl motion-reduce:animate-none" aria-hidden="true">🎉</span>
     @for (word of titleWords(); track $index) {
-      <span class="word" aria-hidden="true">
+      <span class="inline-block whitespace-nowrap" aria-hidden="true">
         @for (l of word.letters; track l.i) {
-          <span class="letter" [style.--i]="l.i">{{ l.char }}</span>
+          <span
+            class="inline-block animate-home-letter text-[color:hsl(calc(var(--i)_*_24deg)_100%_72%)] [text-shadow:0_3px_0_rgba(0,0,0,0.25),0_0_18px_rgba(255,255,255,0.55)] motion-reduce:animate-none"
+            [style.--i]="l.i"
+            >{{ l.char }}</span
+          >
         }
       </span>
       @if (!$last) {
-        <span class="sp" aria-hidden="true">{{ ' ' }}</span>
+        <span class="whitespace-pre" aria-hidden="true">{{ ' ' }}</span>
       }
     }
-    <span class="spark spark-r" aria-hidden="true">🎉</span>
+    <span
+      class="mx-[0.25em] inline-block animate-home-twirl [animation-delay:-1.2s] motion-reduce:animate-none"
+      aria-hidden="true"
+      >🎉</span
+    >
   </h1>
-  <p class="subtitle">Haz clic en el sobre para abrir tu carta 🎁</p>
+  <p
+    class="relative z-2 text-[length:clamp(0.9rem,2vw,1.15rem)] font-semibold [text-shadow:0_2px_8px_rgba(0,0,0,0.4)] max-[481px]:px-4 max-[481px]:text-center [@media(max-height:500px)_and_(orientation:landscape)]:hidden"
+  >
+    Haz clic en el sobre para abrir tu carta 🎁
+  </p>
 
-  <section class="stage">
-    <div class="halo" aria-hidden="true"></div>
-    <div class="ring" aria-hidden="true"></div>
+  <section
+    class="group/stage relative z-1 h-[var(--size)] w-[var(--size)] [--photo:calc(var(--size)_*_0.22)] [--radius:calc(var(--size)_*_0.38)] [--size:min(96vw,max(300px,calc(100dvh_-_12rem)))] [@media(max-height:500px)_and_(orientation:landscape)]:[--size:min(60vw,max(240px,calc(100dvh_-_3.5rem)))]"
+  >
+    <div
+      class="absolute inset-[-4%] animate-home-halo rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(253,224,71,0.15)_45%,transparent_70%)] motion-reduce:animate-none"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="absolute top-1/2 left-1/2 h-[calc(var(--radius)_*_2)] w-[calc(var(--radius)_*_2)] rounded-full border-2 border-dashed border-[rgba(255,255,255,0.35)] [transform:translate(-50%,-50%)]"
+      aria-hidden="true"
+    ></div>
 
     <div
-      class="center photo"
+      class="absolute top-1/2 left-1/2 h-[calc(var(--size)_*_0.3)] w-[calc(var(--size)_*_0.3)] animate-home-pulse cursor-pointer overflow-hidden rounded-full border-6 border-solid border-[#fde047] bg-white shadow-[0_8px_28px_rgba(0,0,0,0.4)] [transform:translate(-50%,-50%)] motion-reduce:animate-none max-[481px]:border-4 [&:hover]:border-white"
       role="button"
       tabindex="0"
       title="¡Haz clic para escuchar una sorpresa! 🎶"
@@ -31,20 +56,35 @@
       (keydown.enter)="celebrate()"
     >
       @if (failed().has(centerPhoto)) {
-        <div class="placeholder">🎂</div>
+        <div
+          class="grid h-full w-full place-items-center bg-[linear-gradient(135deg,#fde68a,#f9a8d4)] text-[length:calc(var(--size)_*_0.14)]"
+        >
+          🎂
+        </div>
       } @else {
-        <img [src]="centerPhoto" [alt]="name()" (error)="markFailed(centerPhoto)" />
+        <img class="block h-full w-full object-cover" [src]="centerPhoto" [alt]="name()" (error)="markFailed(centerPhoto)" />
       }
     </div>
 
-    <div class="orbit">
+    <div class="absolute inset-0 animate-home-spin group-[:hover]/stage:[animation-play-state:paused] motion-reduce:animate-none">
       @for (src of orbitPhotos; track src) {
-        <div class="slot" [style.--i]="$index">
-          <div class="photo counter" (mouseenter)="sound.bloop()" (click)="sound.pop()">
+        <div
+          class="absolute top-1/2 left-1/2 h-[var(--photo)] w-[var(--photo)] [margin:calc(var(--photo)_/_-2)_0_0_calc(var(--photo)_/_-2)] [transform:rotate(calc(var(--i)_*_45deg))_translateY(calc(var(--radius)_*_-1))]"
+          [style.--i]="$index"
+        >
+          <div
+            class="h-full w-full animate-home-counter overflow-hidden rounded-full border-4 border-solid border-white bg-white shadow-[0_8px_28px_rgba(0,0,0,0.4)] group-[:hover]/stage:[animation-play-state:paused] motion-reduce:animate-none max-[481px]:border-3"
+            (mouseenter)="sound.bloop()"
+            (click)="sound.pop()"
+          >
             @if (failed().has(src)) {
-              <div class="placeholder">{{ emojis[$index] }}</div>
+              <div
+                class="grid h-full w-full place-items-center bg-[linear-gradient(135deg,#fde68a,#f9a8d4)] text-[length:calc(var(--size)_*_0.08)]"
+              >
+                {{ emojis[$index] }}
+              </div>
             } @else {
-              <img [src]="src" alt="Recuerdo {{ $index + 1 }}" (error)="markFailed(src)" />
+              <img class="block h-full w-full object-cover" [src]="src" alt="Recuerdo {{ $index + 1 }}" (error)="markFailed(src)" />
             }
           </div>
         </div>
@@ -53,21 +93,39 @@
 
     <!-- Explosión de confeti al tocar la foto central -->
     @for (p of burst(); track $index) {
-      <span class="burst" aria-hidden="true" [style.--dx]="p.dx" [style.--dy]="p.dy" [style.--r]="p.rot + 'deg'" [style.--dl]="p.delay + 's'">{{ p.emoji }}</span>
+      <span
+        class="pointer-events-none absolute top-1/2 left-1/2 z-4 animate-home-burst text-[length:clamp(1.2rem,3vw,2.2rem)]"
+        aria-hidden="true"
+        [style.--dx]="p.dx"
+        [style.--dy]="p.dy"
+        [style.--r]="p.rot + 'deg'"
+        [style.--dl]="p.delay + 's'"
+        >{{ p.emoji }}</span
+      >
     }
 
     <!-- Sobre justo debajo de la foto central -->
     <button
       type="button"
-      class="envelope-btn"
+      class="group/btn absolute top-[66%] right-0 left-0 z-3 mx-auto w-max animate-home-bounce cursor-pointer border-0 bg-transparent p-0 motion-reduce:animate-none focus-visible:rounded-[12px] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-[#fde047]"
       (click)="openLetter()"
       (mouseenter)="sound.chime()"
       aria-label="Abrir la carta de cumpleaños"
     >
-      <span class="envelope" [class.open]="opening()">
-        <span class="flap"></span>
-        <span class="pocket"></span>
-        <span class="seal">🎂</span>
+      <span
+        class="group/env relative block aspect-[3/2] w-[var(--ew)] rounded-[6px] bg-[#fbbf24] shadow-[0_8px_20px_rgba(0,0,0,0.35)] [--ew:130px] [perspective:600px] [transition:transform_0.25s] group-[:hover]/btn:[transform:scale(1.12)_rotate(-3deg)]"
+        [class.open]="opening()"
+      >
+        <span
+          class="absolute top-0 left-0 z-3 h-[58%] w-full origin-top bg-[#f97316] [clip-path:polygon(0_0,100%_0,50%_100%)] [transition:transform_0.7s_ease-in-out] group-[.open]/env:[transform:rotateX(180deg)]"
+        ></span>
+        <span
+          class="absolute inset-0 z-2 rounded-[6px] bg-[#fde68a] [clip-path:polygon(0_0,50%_58%,100%_0,100%_100%,0_100%)]"
+        ></span>
+        <span
+          class="absolute top-[58%] left-1/2 z-4 text-[length:calc(var(--ew)_*_0.2)] [transform:translate(-50%,-50%)] [transition:opacity_0.3s] group-[.open]/env:opacity-0"
+          >🎂</span
+        >
       </span>
     </button>
   </section>

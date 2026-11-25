@@ -1,6 +1,13 @@
 /** Fotos disponibles en public/photos (las que dicen "omitir" no se usan). */
 export const CENTER_PHOTO = 'photos/central2.jpeg'; // Foto central (la que se hace clic para abrir la carta)
 
+/** Fotos del modal de pista: la cara del tubo y los dos perritos que lo acompañan. */
+export const HINT_PHOTOS = {
+  tube: 'photos/tubo.jpeg',
+  dogLeft: 'photos/perro1.jpeg',
+  dogRight: 'photos/perro2.jpeg'
+};
+
 const GALLERY = [
   'IMG-20260818-WA0004.jpg',
   'IMG-20260818-WA0005.jpg',

@@ -8,7 +8,7 @@ import { SoundService } from '../sound/sound.service';
   selector: 'app-gift',
   imports: [Dog],
   templateUrl: './gift.html',
-  styleUrl: './gift.css'
+  host: { class: 'block' }
 })
 export class Gift implements OnDestroy {
   private readonly router = inject(Router);
